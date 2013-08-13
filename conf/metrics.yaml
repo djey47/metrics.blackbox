@@ -1,0 +1,8 @@
+# Main config file for Metrics BlackBox
+common : 
+windows :
+  dev-redis-path : E:\Docs\Aptana Studio 3 Workspace - Metrics\Redis\   
+  prod-redis-path : bin\redis\
+linux : 
+  dev-redis-path : /home/avsp/applications/redis-2.6.14/src/
+  prod-redis-path : bin/redis/    
