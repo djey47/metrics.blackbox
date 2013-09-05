@@ -4,7 +4,9 @@ By Djey
 ------------------------------
 
 * Launch Metrics Controller : run rupees/controller/controller.rb
- OR via script : scripts/start-metrics.cmd (win) / start-metrics.sh (linux)
+ OR via script : 
+ $ cd scripts 
+ $ start-metrics.cmd (win) / ./start-metrics.sh (linux)
  
 * WS IN Connector : localhost:4567
 
