@@ -50,12 +50,10 @@ class Controller
       opts.banner = "Usage: controller.rb [options]"
 
       opts.on("-e", "--environment ENV", "(opt) Specify run environment : DEV/PROD. Defaulted to DEV.") do |e|
-        pp e
         options[:env] = e
       end
 
       opts.on("-c", "--config FILE", "(req) Specify config file") do |c|
-        pp c
         options[:configFile] = c
       end
       
@@ -67,9 +65,7 @@ class Controller
       opts.on_tail("-v" , "--version", "Show version") do
         puts OptionParser::Version.join('.')
         exit
-      end
-      
-
+      end      
     end.parse!(args)
     
     # default options
@@ -77,8 +73,6 @@ class Controller
     
     #Now raise an exception if we have not found mandatory options
     raise OptionParser::MissingArgument if options[:configFile].nil?
-    
-    pp options
     
     options
   end
