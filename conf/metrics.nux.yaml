@@ -1,4 +1,4 @@
 # Main config file for Metrics BlackBox
 common : 
-  dev-redis-path : /home/avsp/applications/redis-2.6.14/src/
-  prod-redis-path : bin/redis/    
+  dev-redis-path : /home/avsp/applications/redis-2.6.14/src/redis-server
+  prod-redis-path : bin/redis/redis-server    

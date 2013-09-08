@@ -15,7 +15,7 @@ class RedisCache
     # Binary
     @logger.info("[RedisCache] Starting Redis cache server...")    
     Controller::instance.allThreads << Thread.new {
-      result = system("#{Controller::instance.configuration.options.redis_path}/redis-server")
+      result = system("#{Controller::instance.configuration.options.redis_path}")
       if (result)
         @logger.info("[RedisCache] Redis cache server now started.")    
       else
