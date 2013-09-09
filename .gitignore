@@ -2,18 +2,19 @@
 *.rbc
 .bundle
 .config
+.project
 coverage
 InstalledFiles
 lib/bundler/man
+nohup.out
 pkg
 rdoc
 spec/reports
+scripts/dump.rdb
 test/tmp
 test/version_tmp
 tmp
 *.*~
-nohup.out
-.project
 
 # YARD artifacts
 .yardoc
