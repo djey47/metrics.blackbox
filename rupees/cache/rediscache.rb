@@ -16,9 +16,7 @@ class RedisCache
     @logger.info("[RedisCache] Starting Redis cache server...")    
     Controller::instance.allThreads << Thread.new {
       result = system("#{Controller::instance.configuration.options.redis_path}")
-      if (result)
-        @logger.info("[RedisCache] Redis cache server now started.")    
-      else
+      if (!result)
         @logger.error("[RedisCache] Could not execute Redis cache server!")    
       end
     }    
