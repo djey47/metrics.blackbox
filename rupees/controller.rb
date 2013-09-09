@@ -6,6 +6,7 @@ require 'singleton'
 require_relative 'configuration'
 require_relative 'options'
 require_relative 'cache/rediscache'
+require_relative 'connectors/webservices/webservices-in'
 
 
 class Controller 
@@ -31,7 +32,9 @@ class Controller
     @logger.info("[Controller] Loading configuration...")
     @configuration = Configuration.new(options[:env], options[:configFile])
     
-    @cache = RedisCache.new
+    @cache = RedisCache.new    
+    
+    @wsInConnector = WebservicesInConnector.new    
     
     @logger.info("[Controller] Ready to rumble!")
     # Waiting for all threads to terminate
