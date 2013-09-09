@@ -4,6 +4,8 @@ By Djey
 ------------------------------
 
 * Launch Metrics Controller : run rupees/controller/controller.rb
+Use --help switch for details.
+
  OR via script : 
  $ cd scripts 
  $ start-metrics.cmd (win) / ./start-metrics.sh (linux)
