@@ -1,5 +1,6 @@
 #options.rb
 #Handles parsing of command line options for Metrics controller
+#Important: every class including this module has to provide a @logger member (Ruby Logger class)
 
 require 'optparse'
 
