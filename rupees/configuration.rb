@@ -17,6 +17,7 @@ class Configuration
   
   def initialize(currentEnv, configFile)
     @logger = Logger.new(STDOUT)
+    @logger.level = Logger::INFO    
     
     @file = configFile
     @env = currentEnv
