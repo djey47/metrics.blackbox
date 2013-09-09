@@ -4,7 +4,6 @@
 require 'logger'
 require 'singleton'
 require 'optparse'
-require 'pp'
 require_relative 'configuration'
 require_relative 'cache/rediscache'
 
@@ -79,7 +78,6 @@ class Controller
     options[:env] = Environment::DEVELOPMENT if options[:env].nil?
     raise OptionParser::InvalidArgument if
       options[:env] != Environment::DEVELOPMENT && options[:env] != Environment::PRODUCTION    
-
     
     options
   end

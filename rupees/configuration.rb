@@ -40,7 +40,7 @@ class Configuration
     options.redis_path = contents["common"]["#{envPrefix}-redis-path"]
     
     # Conf summary    
-    @logger.info("[Configuration] * redis_path = #{options.redis_path}")        
+    @logger.info("[Configuration] #{options}")       
   end
   
 end
