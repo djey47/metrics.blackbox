@@ -25,15 +25,14 @@ class Controller
     @logger.info("[Controller] Reviewing parameters from command line...")
     options = parseParams(ARGV)
     
-    @logger.info("[Controller] Booting Metrics controller aka `BlackBox`...")
+    @logger.info("[Controller] Booting Metrics controller aka `BlackBox`into #{options[:env]} mode...")
 
     @logger.info("[Controller] Loading configuration...")
     @configuration = Configuration.new(options[:env], options[:configFile])
     
-    @logger.info("[Controller] Booting into #{options[:env]} mode...")
-    
     @cache = RedisCache.new
     
+    @logger.info("[Controller] Ready to rumble!")
     # Waiting for all threads to terminate
     allThreads.each { |thr| thr.join }    
   end
