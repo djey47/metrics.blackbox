@@ -62,17 +62,24 @@ class Controller
         exit
       end
       
-      opts.on_tail("-v" , "--version", "Show version") do
+      opts.on_tail("-v" , "--version", "Show version information about this program") do
         puts OptionParser::Version.join('.')
         exit
       end      
     end.parse!(args)
-    
-    # default options
-    options[:env] = "DEV" if options[:env].nil?
-    
-    #Now raise an exception if we have not found mandatory options
+        
+    validate options
+  end
+  
+  def validate(options)    
+    @logger.info("[Controller] * -c/--config ...")            
     raise OptionParser::MissingArgument if options[:configFile].nil?
+
+    @logger.info("[Controller] * -e/--environment ...")            
+    options[:env] = Environment::DEVELOPMENT if options[:env].nil?
+    raise OptionParser::InvalidArgument if
+      options[:env] != Environment::DEVELOPMENT && options[:env] != Environment::PRODUCTION    
+
     
     options
   end
