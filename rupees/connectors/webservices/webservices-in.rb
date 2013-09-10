@@ -6,26 +6,22 @@ require 'sinatra'
 require 'sinatra/base'
 
 class HttpServerIn < Sinatra::Base
+  
   def initialize
     @logger = Logger.new(STDOUT)
-    @logger.level = Logger::INFO
-
+    @logger.level = Logger::INFO    
     #Required for correct Sinatra init
     super
   end
- 
-  #config
-  set :environment, :development
-  #set :server, %w[thin]    
-  set :port, 4567  
 
-  #Q&D example
+  #config  
+  set :port, Proc.new { Controller::instance.configuration.options.wsin_port }
+  set :environment, development
+ 
+  #Heartbeat
   get '/' do
     @logger.info("[HttpServerIn] GET /")
-
-    [200, 'Hello world! This is Metrics Project - BlackBox :)
-    <br/>
-    Currently demonstrating of webservices IN connector']
+    [200, "Metrics - BlackBox: webservices IN connector is alive :)"]
   end
 end
 
