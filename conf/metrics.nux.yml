@@ -1,4 +1,9 @@
 # Main config file for Metrics BlackBox
-common : 
-  dev-redis-path : /home/avsp/applications/redis-2.6.14/src/redis-server
-  prod-redis-path : bin/redis/redis-server    
+cache : 
+  dev-redis-path : /home/avsp/applications/redis-2.6.14/ssrc/redis-server
+  prod-redis-path : bin/redis/redis-server
+connector-ws :
+  dev-wsin-port : 4567
+  prod-wsin-port : 4567
+  dev-wsout-port : 4568
+  prod-wsout-port : 4568  

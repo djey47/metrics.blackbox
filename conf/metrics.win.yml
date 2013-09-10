@@ -1,4 +1,9 @@
 # Main config file for Metrics BlackBox
-common : 
+cache : 
   dev-redis-path : C:\Utils\Dev\Redis\redis-server.exe   
   prod-redis-path : bin\redis\redis-server.exe
+connector-ws :
+  dev-wsin-port : 4567
+  prod-wsin-port : 4567
+  dev-wsout-port : 4568  
+  prod-wsout-port : 4568  

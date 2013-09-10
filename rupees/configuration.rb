@@ -38,7 +38,9 @@ class Configuration
     # Reads conf...
     envPrefix = @env.downcase
     
-    options.redis_path = contents["common"]["#{envPrefix}-redis-path"]
+    options.redis_path = contents["cache"]["#{envPrefix}-redis-path"]
+    options.wsin_port = contents["connector-ws"]["#{envPrefix}-wsin-port"]
+    options.wsout_port = contents["connector-ws"]["#{envPrefix}-wsout-port"]
     
     # Conf summary    
     @logger.info("[Configuration] #{options}")       
