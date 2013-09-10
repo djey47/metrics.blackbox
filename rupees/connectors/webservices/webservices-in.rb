@@ -16,7 +16,7 @@ class HttpServerIn < Sinatra::Base
 
   #config  
   set :port, Proc.new { Controller::instance.configuration.options.wsin_port }
-  set :environment, development
+  set :environment, :development
  
   #Heartbeat
   get '/' do
