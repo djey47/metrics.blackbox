@@ -15,7 +15,7 @@ class RedisCache
     # Binary
     @logger.info("[RedisCache] Starting cache server...")    
     Controller::instance.allThreads << Thread.new {
-      result = system("#{Controller::instance.configuration.options.redis_path}")
+      result = system("#{Controller::instance.configuration.options.redis_path} #{Controller::instance.configuration.information.conf_directory}/redis.conf")
       if (result.nil?)
         @logger.error("[RedisCache] Cache server has unexpectedly quit: #{$?}!")
         raise RuntimeError, "When running cache server: #{Controller::instance.configuration.options.redis_path}"
