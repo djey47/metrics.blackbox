@@ -13,6 +13,7 @@ end
 class Configuration
   
   attr_reader :options
+  attr_reader :information
   attr_reader :env
   
   def initialize(currentEnv, configFile)
@@ -22,11 +23,23 @@ class Configuration
     @file = configFile
     @env = currentEnv
     @options = OpenStruct.new
+    @information = OpenStruct.new
     
-    parse
+    setInformation(currentEnv)
+    parseOptions
   end
   
-  def parse
+  def setInformation(env)
+    information.env = env
+    information.rb_directory = File.expand_path File.dirname(__FILE__)
+    information.root_directory = "#{File.expand_path File.dirname(__FILE__)}/.."
+    information.conf_directory = "#{information.root_directory}/conf"
+
+    # Conf summary    
+    @logger.info("[Configuration] Information: #{information}")           
+  end
+  
+  def parseOptions
     begin
       contents = YAML.load_file(@file)
     rescue Exception => e
@@ -43,7 +56,7 @@ class Configuration
     options.wsout_port = contents["connector-ws"]["#{envPrefix}-wsout-port"]
     
     # Conf summary    
-    @logger.info("[Configuration] #{options}")       
+    @logger.info("[Configuration] Options: #{options}")       
   end
   
 end
