@@ -13,6 +13,11 @@ class HttpServerIn < Sinatra::Base
     super
   end
 
+  def store(appId, contextId, natureId, value)
+    @logger.info("[HttpServerIn][store] appId: #{appId} - contextId: #{contextId} - natureId: #{natureId} - value: #{value}")
+    #MetricsController.instance.collector.add(appId, contextId, natureId, value)
+  end  
+
   #config  
   set :port, Proc.new { 
     Controller::instance.configuration.options.wsin_port 
@@ -33,6 +38,12 @@ class HttpServerIn < Sinatra::Base
     @logger.info("[HttpServerIn] GET /")
     [200, "Metrics - BlackBox: webservices IN connector is alive :)"]
   end
+  
+  #IN service : mono-valued
+  post '/collector/:appId/:contextId/:natureId/:value' do
+    store(params[:appId], params[:contextId], params[:natureId], params[:value])
+    204
+  end  
 end
 
 class WebservicesInConnector
