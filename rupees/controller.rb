@@ -3,10 +3,11 @@
 
 require 'logger'
 require 'singleton'
-require_relative 'configuration'
-require_relative 'options'
 require_relative 'cache/rediscache'
 require_relative 'connectors/webservices/webservices-in'
+require_relative 'mediators/collector'
+require_relative 'configuration'
+require_relative 'options'
 
 
 class Controller 

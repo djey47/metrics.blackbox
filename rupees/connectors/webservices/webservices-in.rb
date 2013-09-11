@@ -2,9 +2,10 @@
 #IN connector for webservices
 #Hosts a web server on a local port (defined by configuration)
 
+require 'sinatra/base'
 require 'json'
 require 'sinatra'
-require 'sinatra/base'
+require_relative '../../mediators/collector'
 
 
 class HttpServerIn < Sinatra::Base  
@@ -17,7 +18,7 @@ class HttpServerIn < Sinatra::Base
 
   def store(appId, contextId, natureId, value)
     @logger.info("[HttpServerIn][store] appId: #{appId} - contextId: #{contextId} - natureId: #{natureId} - value: #{value}")
-    #MetricsController.instance.collector.add(appId, contextId, natureId, value)
+    Collector::add(appId, contextId, natureId, value)
   end  
   
   def storeStar(appId, datas)
@@ -48,7 +49,11 @@ class HttpServerIn < Sinatra::Base
   
   #IN service : mono-valued
   post '/collector/:appId/:contextId/:natureId/:value' do
-    store(params[:appId], params[:contextId], params[:natureId], params[:value])
+    begin
+      store(params[:appId], params[:contextId], params[:natureId], params[:value])
+    rescue => exception
+      @logger.error("[HttpServerIn][mono] #{exception.class} : #{exception.message}")
+    end
     204
   end
   
