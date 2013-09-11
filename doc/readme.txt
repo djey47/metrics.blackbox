@@ -3,8 +3,8 @@ Started on 9th August, 2013
 By Djey
 ------------------------------
 
-* Launch Metrics Controller : run rupees/controller/controller.rb
-Use --help switch for details.
+* Launch Metrics Controller : run rupees/controller/controller.rb <options>
+Use --help switch for options details.
 
  OR via script : 
  $ cd scripts 
