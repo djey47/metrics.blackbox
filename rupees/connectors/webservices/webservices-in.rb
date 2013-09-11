@@ -5,8 +5,7 @@
 require 'sinatra'
 require 'sinatra/base'
 
-class HttpServerIn < Sinatra::Base
-  
+class HttpServerIn < Sinatra::Base  
   def initialize
     @logger = Logger.new(STDOUT)
     @logger.level = Logger::INFO    
@@ -15,8 +14,19 @@ class HttpServerIn < Sinatra::Base
   end
 
   #config  
-  set :port, Proc.new { Controller::instance.configuration.options.wsin_port }
-  set :environment, :development
+  set :port, Proc.new { 
+    Controller::instance.configuration.options.wsin_port 
+  }
+  set :environment, Proc.new {
+    if (Controller::instance.configuration.information.env == "DEV")
+      :development
+    else
+      :production
+    end
+  }
+  set :show_exceptions, Proc.new {
+    Controller::instance.configuration.information.env
+  }
  
   #Heartbeat
   get '/' do
@@ -32,7 +42,6 @@ class WebservicesInConnector
 
     Controller::instance.allThreads << Thread.new {      
       @logger.info("[WebservicesInConnector] Starting HTTP server...")    
-  
       HttpServerIn.run!
     }    
   end
