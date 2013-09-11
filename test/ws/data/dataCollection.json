@@ -1,0 +1,16 @@
+{
+	"datas" : [ 
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "45.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT2" }, 
+			"value" : "blabla"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX2", "natId" : "NAT1" }, 
+			"value" : "-50xy"
+	 	} 
+ 	]
+}

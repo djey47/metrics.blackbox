@@ -2,8 +2,10 @@
 #IN connector for webservices
 #Hosts a web server on a local port (defined by configuration)
 
+require 'json'
 require 'sinatra'
 require 'sinatra/base'
+
 
 class HttpServerIn < Sinatra::Base  
   def initialize
@@ -17,7 +19,12 @@ class HttpServerIn < Sinatra::Base
     @logger.info("[HttpServerIn][store] appId: #{appId} - contextId: #{contextId} - natureId: #{natureId} - value: #{value}")
     #MetricsController.instance.collector.add(appId, contextId, natureId, value)
   end  
-
+  
+  def storeStar(appId, datas)
+    @logger.info("[HttpServerIn][store*] appId: #{appId} - values: #{datas}")    
+    # MetricsController.instance.collector.addAll(appId, datas)
+  end
+  
   #config  
   set :port, Proc.new { 
     Controller::instance.configuration.options.wsin_port 
@@ -35,7 +42,7 @@ class HttpServerIn < Sinatra::Base
  
   #Heartbeat
   get '/' do
-    @logger.info("[HttpServerIn] GET /")
+    @logger.info("[HttpServerIn] Heartbeat!")
     [200, "Metrics - BlackBox: webservices IN connector is alive :)"]
   end
   
@@ -43,7 +50,19 @@ class HttpServerIn < Sinatra::Base
   post '/collector/:appId/:contextId/:natureId/:value' do
     store(params[:appId], params[:contextId], params[:natureId], params[:value])
     204
-  end  
+  end
+  
+  #IN service : multi-valued
+  post '/collector/:appId' do
+    begin
+      req = JSON.parse(request.body.read)
+      storeStar(params[:appId], req["datas"])
+      204
+    rescue => exception
+      @logger.error("[HttpServerIn][multi] #{exception.class} : #{exception.message}")
+      400
+    end
+  end
 end
 
 class WebservicesInConnector
