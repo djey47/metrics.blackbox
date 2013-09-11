@@ -28,7 +28,7 @@ class Configuration
   def setInformation(env)
     information.env = env
     information.rb_directory = File.expand_path File.dirname(__FILE__)
-    information.root_directory = "#{File.expand_path File.dirname(__FILE__)}/.."
+    information.root_directory = "#{information.rb_directory}/.."
     information.conf_directory = "#{information.root_directory}/conf"
 
     # Conf summary    
