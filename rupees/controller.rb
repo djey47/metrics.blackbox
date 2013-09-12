@@ -16,6 +16,7 @@ class Controller
 
   attr_reader :allThreads
   attr_reader :configuration
+  attr_reader :cache
   
   def initialize               
     @logger = Logger.new(STDOUT)

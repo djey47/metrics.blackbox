@@ -27,5 +27,11 @@ class RedisCache
     # Helper
     @redis = Redis.new
   end
-    
+  
+  def store(datas)
+    @logger.info("[RedisCache][store] Datas count: #{datas.length}")    
+    @redis.multi do
+      datas.each { |data| @redis.set(data.key, data.value) }
+    end
+  end      
 end
