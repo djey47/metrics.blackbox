@@ -1,0 +1,16 @@
+{
+	"dataz" : [ 
+		{ 
+			"ki" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"valu" : "45.0"
+	 	},
+		{ 
+			"ki" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT2" }, 
+			"valu" : "blabla"
+	 	},
+		{ 
+			"ki" : { "appId" : "APP_TEST", "ctxId" : "CTX2", "natId" : "NAT1" }, 
+			"value" : "-50xy"
+	 	} 
+ 	]
+}

@@ -23,7 +23,7 @@ class HttpServerIn < Sinatra::Base
   
   def storeStar(appId, datas)
     @logger.info("[HttpServerIn][store*] appId: #{appId} - values: #{datas}")    
-    # MetricsController.instance.collector.addAll(appId, datas)
+    Collector::addAll(appId, datas)
   end
   
   #config  
