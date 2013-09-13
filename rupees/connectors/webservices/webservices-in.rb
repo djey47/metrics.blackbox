@@ -51,10 +51,11 @@ class HttpServerIn < Sinatra::Base
   post '/collector/:appId/:contextId/:natureId/:value' do
     begin
       store(params[:appId], params[:contextId], params[:natureId], params[:value])
+      204
     rescue => exception
       @logger.error("[HttpServerIn][mono] #{exception.class} : #{exception.message}")
+      500
     end
-    204
   end
   
   #IN service : multi-valued
