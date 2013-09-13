@@ -33,5 +33,20 @@ class RedisCache
     @redis.multi do
       datas.each { |data| @redis.set(data.key, data.value) }
     end
-  end      
+  end  
+  
+  def retrieve(datas)
+    @logger.info("[RedisCache][retrieve] Keys count: #{datas.length}")
+    rawResults = {}
+    @redis.multi do
+      datas.each { |data| rawResults[data] = @redis.get(data.key) }
+    end
+    
+    results = rawResults.collect do |data,future|
+      DataItem.new(data.appId, data.contextId, data.natureId, future.value)
+    end        
+    
+    @logger.info("[RedisCache][retrieve] Result: #{results}")    
+    results
+  end
 end

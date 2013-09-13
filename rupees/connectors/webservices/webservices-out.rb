@@ -21,7 +21,6 @@ class HttpServerOut < Sinatra::Base
   def retrieve(appId, contextId, natureId)
     @logger.info("[HttpServerOut][retrieve] appId: #{appId} - contextId: #{contextId} - natureId: #{natureId}")
     Server::get(appId, contextId, natureId)
-    DataItem.new(appId, contextId, natureId,"FOO")
   end  
   
   def retrieveStar(appId)
