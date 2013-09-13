@@ -11,6 +11,7 @@ module Collector
     @logger.info("[Collector][add] Data received. appId: #{appId} - contextId: #{contextId} - natureId: #{natureId} - value: #{value}")    
     toStore = []
     toStore << DataItem.new(appId, contextId, natureId, value)     
+
     Controller::instance.cache.store(toStore)
   end  
   
