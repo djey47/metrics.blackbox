@@ -5,7 +5,7 @@
 require 'sinatra/base'
 require 'json'
 require 'sinatra'
-# require_relative '../../mediators/server'
+require_relative '../../mediators/server'
 require_relative '../../model/data-item'
 require_relative '../../model/error-item'
 require_relative '../../model/exceptions/novalue'
@@ -20,7 +20,7 @@ class HttpServerOut < Sinatra::Base
 
   def retrieve(appId, contextId, natureId)
     @logger.info("[HttpServerOut][retrieve] appId: #{appId} - contextId: #{contextId} - natureId: #{natureId}")
-    #Server::get(appId, contextId, natureId, value)
+    Server::get(appId, contextId, natureId)
     DataItem.new(appId, contextId, natureId,"FOO")
   end  
   
