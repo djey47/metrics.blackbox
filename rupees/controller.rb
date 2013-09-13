@@ -5,6 +5,7 @@ require 'logger'
 require 'singleton'
 require_relative 'cache/rediscache'
 require_relative 'connectors/webservices/webservices-in'
+require_relative 'connectors/webservices/webservices-out'
 require_relative 'mediators/collector'
 require_relative 'configuration'
 require_relative 'options'
@@ -37,6 +38,7 @@ class Controller
     @cache = RedisCache.new    
     
     @wsInConnector = WebservicesInConnector.new    
+    @wsOutConnector = WebservicesOutConnector.new    
     
     @logger.info("[Controller] Ready to rumble!")
     # Waiting for all threads to terminate
