@@ -38,7 +38,7 @@ class HttpServerIn < Sinatra::Base
     end
   }
   set :show_exceptions, Proc.new {
-    Controller::instance.configuration.information.env
+    Controller::instance.configuration.information.env == "DEV"
   }
  
   #Heartbeat
