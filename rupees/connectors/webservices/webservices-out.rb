@@ -24,12 +24,33 @@ class HttpServerOut < Sinatra::Base
     DataItem.new(appId, contextId, natureId,"FOO")
   end  
   
+  def retrieveStar(appId)
+    @logger.info("[HttpServerOut][retrieve*] appId: #{appId}")
+    #Server::getAll(appId)
+    
+    toReturn = []
+    toReturn << DataItem.new(appId, "CTX1", "NAT1", "FOO1")
+    toReturn << DataItem.new(appId, "CTX1", "NAT2", "FOO2")
+    toReturn
+  end
+    
+  #TODO externalize to DataItem class ?
+  def buildDataStructure(data)
+    { :key => data.key, :value => data.value }    
+  end
+      
   def buildJsonResult(data)
-    { :key => data.key, :value => data.value }.to_json       
+    buildDataStructure(data).to_json       
   end
   
-  def buildJsonError(params)
-    { :code => ErrorItem::VALUE_NOT_FOUND, :detail => "#{params[:appId]}|#{params[:contextId]}|#{params[:natureId]}"}.to_json    
+  def buildJsonResults(datas)
+    toReturn = []
+    datas.each { |data| toReturn << buildDataStructure(data) } 
+    { :datas => toReturn}.to_json 
+  end
+
+  def buildJsonError(error, params)
+    { :code => error, :detail => "#{params[:appId]}|#{params[:contextId]}|#{params[:natureId]}"}.to_json    
   end
   
   def handleJsonResult(json, params)
@@ -69,7 +90,7 @@ class HttpServerOut < Sinatra::Base
       content_type :json      
       [200, handleJsonResult(json, params)]      
     rescue NoValueException
-      json = buildJsonError(params)
+      json = buildJsonError(ErrorItem::VALUE_NOT_FOUND, params)
       content_type :json      
       [404, handleJsonResult(json, params)]
     rescue => exception
@@ -77,6 +98,23 @@ class HttpServerOut < Sinatra::Base
       500
     end
   end
+  
+  #OUT service : multi-valued
+  get '/server/:appId' do
+    begin      
+      results = retrieveStar(params[:appId])
+      json = buildJsonResults(results)                  
+      content_type :json         
+      [200, handleJsonResult(json, params)]
+    rescue NoValueException      
+      json = buildJsonError(ErrorItem::VALUES_NOT_FOUND, params)      
+      content_type :json      
+      [404, handleJsonResult(json, params)]      
+    rescue => exception
+      @logger.error("[HttpServerOut][multi] #{exception.class} : #{exception.message}")
+      500
+    end      
+  end  
 end
   
 class WebservicesOutConnector
