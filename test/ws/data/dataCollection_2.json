@@ -1,0 +1,8 @@
+{
+	"datas" : [ 
+		{ 
+			"key" : { "appId" : "APP_TEST_2", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "toto"
+	 	} 	 	 
+ 	]
+}

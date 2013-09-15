@@ -16,8 +16,17 @@ module Server
     
     if (results[0].value.nil?)
       raise NoValueException, 'Value not found for key #{datas[0].key}.'
-    else
-      results[0]
+    end
+    results[0]
+  end
+
+  def self.getAll(appId)
+    @logger.info("[Server][getAll] Request received. appId: #{appId}")    
+    results = Controller::instance.cache.retrieveByAppId(appId)
+    
+    if (results.length == 0)
+      raise NoValueException, 'Value not found for appId #{appId}.'
     end        
+    results
   end
 end

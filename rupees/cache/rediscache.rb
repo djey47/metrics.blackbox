@@ -49,4 +49,20 @@ class RedisCache
     @logger.info("[RedisCache][retrieve] Result: #{results}")    
     results
   end
+  
+  def retrieveByAppId(appId)
+    @logger.info("[RedisCache][retrieveByAppId] appId: #{appId}")
+    keys = @redis.keys("#{appId}|*")
+    rawResults = {}
+    @redis.multi do
+      keys.each { |key| rawResults[key] = @redis.get(key) }
+    end
+    
+    results = rawResults.collect do |key,future|
+      DataItem::fromKey(key, future.value)
+    end        
+    
+    @logger.info("[RedisCache][retrieveByAppId] Result: #{results}")
+    results  
+  end  
 end

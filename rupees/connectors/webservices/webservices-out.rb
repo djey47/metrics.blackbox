@@ -25,12 +25,7 @@ class HttpServerOut < Sinatra::Base
   
   def retrieveStar(appId)
     @logger.info("[HttpServerOut][retrieve*] appId: #{appId}")
-    #Server::getAll(appId)
-    
-    toReturn = []
-    toReturn << DataItem.new(appId, "CTX1", "NAT1", "FOO1")
-    toReturn << DataItem.new(appId, "CTX1", "NAT2", "FOO2")
-    toReturn
+    Server::getAll(appId)
   end
     
   #TODO externalize to DataItem class ?
