@@ -6,4 +6,6 @@ connector-ws :
   dev-wsin-port : 4567
   prod-wsin-port : 4567
   dev-wsout-port : 4568  
-  prod-wsout-port : 4568  
+  prod-wsout-port : 4568
+connector-sharedmemory :
+  mapping-files : [sharedmemory/mapping-pcars.yml]      

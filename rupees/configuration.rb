@@ -50,6 +50,7 @@ class Configuration
     options.redis_path = contents["cache"]["#{envPrefix}-redis-path"]
     options.wsin_port = contents["connector-ws"]["#{envPrefix}-wsin-port"]
     options.wsout_port = contents["connector-ws"]["#{envPrefix}-wsout-port"]
+    options.sharedmem_files = contents["connector-sharedmemory"]["mapping-files"]
     
     # Conf summary    
     @logger.info("[Configuration] Options: #{options}")       
