@@ -31,7 +31,11 @@ class Controller
     options = parseParams(ARGV)
     
     @logger.info("[Controller] Booting Metrics controller aka `BlackBox`into #{options[:env]} mode...")
-
+    
+    if (options[:windows])
+      @logger.info("[Controller] Using Windows-specific features.")
+    end 
+    
     @logger.info("[Controller] Loading configuration...")
     @configuration = Configuration.new(options[:env], options[:configFile])
     

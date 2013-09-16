@@ -19,6 +19,10 @@ module Options
         options[:configFile] = c
       end
       
+      opts.on("-w", "--windows", "(opt) Specify windows-specific features to be activated.") do |c|
+        options[:windows] = true
+      end
+
       opts.on_tail("-h", "--help", "Show this message") do
         puts opts
         exit
@@ -34,13 +38,13 @@ module Options
   end
   
   def validate(options)    
-    @logger.info("[Options] * -c/--config ...")            
+    @logger.info("[Options] * Validating -c/--config ...")            
     raise OptionParser::MissingArgument if options[:configFile].nil?
 
-    @logger.info("[Options] * -e/--environment ...")            
+    @logger.info("[Options] * Validating -e/--environment ...")            
     options[:env] = Environment::DEVELOPMENT if options[:env].nil?
-    raise OptionParser::InvalidArgument if
-      options[:env] != Environment::DEVELOPMENT && options[:env] != Environment::PRODUCTION    
+    raise OptionParser::InvalidArgument unless 
+      options[:env] == Environment::DEVELOPMENT || options[:env] == Environment::PRODUCTION    
     
     options
   end
