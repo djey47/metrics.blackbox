@@ -1,0 +1,15 @@
+# Shared memory mapping for project:CARS game
+# By Djey
+
+application-id : PCARS
+shared-filename : $pcars$
+
+# Do not modify first value in each couple, only second one
+mappings : [
+{"PLAYER|CURRENT_SPEED":"mSpeed"},
+{"PLAYER|CURRENT_RPM":"mRpm"},
+{"PLAYER|CURRENT_GEAR":"mGear"},
+{"PLAYER|CURRENT_FUEL":"mFuelLevel"},
+{"RACE|CURRENT_LAP":"mCurrentLap"},
+{"WORLD|AMBIENT_TEMP":"mAmbientTemperature"}
+]
