@@ -23,22 +23,24 @@ class SharedMemoryInConnector
   def run
     readConfiguration
 
-    begin    
-      #@mappings["shared-filename"]
-      #fileHandle = OpenFileMapping(0x02, 0, "$pcars$")      
-      #@logger.info("[SharedMemoryInConnector] File Handle:#{fileHandle}") 
-      #raise Exception, "Unable to capture memory file : " unless fileHandle != 0
+    begin
+      fileName = @mappings[0]["shared-filename"]   
+      fileHandle = OpenFileMapping(0x02, 0, fileName)      
       
-      #sharedData = MapViewOfFile(fileHandle, 0x02, 0, 0, 0)
-      #if (sharedData.nil?)
-        #CloseHandle(fileHandle)
-        #raise Exception, "Unable to capture shared memory data"        
-      #end
+      raise Exception, "Unable to capture memory file for Name:#{fileName}" unless fileHandle != 0
       
-      #@logger.info("[SharedMemoryInConnector] Share data:#{sharedData}")
+      @logger.info("[SharedMemoryInConnector] File Handle:#{fileHandle} for Name:#{fileName}") 
+      sharedData = MapViewOfFile(fileHandle, 0x02, 0, 0, 0)
+      
+      if (sharedData.nil?)
+        CloseHandle(fileHandle)
+        raise Exception, "Unable to capture shared memory data."        
+      end
+      
+      @logger.info("[SharedMemoryInConnector] Share data:#{sharedData}")
      
     rescue Exception => exception
-      @logger.error("#{exception.inspect}")
+      @logger.error("[SharedMemoryInConnector] #{exception.inspect}")
     end
   end
   
