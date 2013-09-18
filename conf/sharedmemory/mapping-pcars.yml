@@ -4,8 +4,13 @@
 application-id : PCARS
 shared-filename : $pcars$
 
-# Do not modify first value in each couple, only second one
+# { key : api method }
 mappings : [
+{"GAME|DATA_VERSION":"mVersion"},
+{"GAME|STATE":"mGameState"},
+{"GAME|SESSION_STATE":"mSessionState"},
+{"PCARS|PLAYER|NAME":"mPlayerName"},
+{"PCARS|PLAYER|CAR":"mCarName"},
 {"PLAYER|CURRENT_SPEED":"mSpeed"},
 {"PLAYER|CURRENT_RPM":"mRpm"},
 {"PLAYER|CURRENT_GEAR":"mGear"},
