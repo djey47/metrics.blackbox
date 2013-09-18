@@ -4,7 +4,6 @@
 require 'logger'
 require 'singleton'
 require_relative 'cache/rediscache'
-require_relative 'connectors/sharedmemory/sharedmemory-in'
 require_relative 'connectors/webservices/webservices-in'
 require_relative 'connectors/webservices/webservices-out'
 
@@ -34,18 +33,22 @@ class Controller
     
     @logger.info("[Controller] Booting Metrics controller aka `BlackBox`into #{options[:env]} mode...")
     
-    if (options[:windows])
-      @logger.info("[Controller] Using Windows-specific features.")
-    end 
-    
     @logger.info("[Controller] Loading configuration...")
     @configuration = Configuration.new(options[:env], options[:configFile])
     
+    # Cache
     @cache = RedisCache.new    
     
+    # Common connectors
     @wsInConnector = WebservicesInConnector.new    
     @wsOutConnector = WebservicesOutConnector.new 
-    @smInConnector = SharedMemoryInConnector.new unless options[:windows].nil?   
+
+    # Windows-specific connectors
+    if (options[:windows])
+      @logger.info("[Controller] Activating Windows-specific features...")
+      require_relative 'connectors/sharedmemory/sharedmemory-in'
+      @smInConnector = SharedMemoryInConnector.new unless options[:windows].nil?   
+    end 
     
     @logger.info("[Controller] Ready to rumble!")
     # Waiting for all threads to terminate
