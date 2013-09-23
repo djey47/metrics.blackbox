@@ -6,10 +6,11 @@ require 'singleton'
 require_relative 'cache/rediscache'
 require_relative 'connectors/webservices/webservices-in'
 require_relative 'connectors/webservices/webservices-out'
-
 require_relative 'mediators/collector'
 require_relative 'configuration'
 require_relative 'options'
+# Imports below are required only when necessary
+# require_relative 'connectors/sharedmemory/sharedmemory-in'
 
 
 class Controller 
@@ -47,7 +48,7 @@ class Controller
     if (options[:windows])
       @logger.info("[Controller] Activating Windows-specific features...")
       require_relative 'connectors/sharedmemory/sharedmemory-in'
-      @smInConnector = SharedMemoryInConnector.new unless options[:windows].nil?   
+      @smInConnector = SharedMemoryInConnector.new  
     end 
     
     @logger.info("[Controller] Ready to rumble!")
