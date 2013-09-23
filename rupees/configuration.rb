@@ -39,7 +39,7 @@ class Configuration
     begin
       contents = YAML.load_file(configFile)
     rescue Exception => exception 
-      @logger.error("[Configuration] Config file #{configFile} not found or invalid! #{exception.class} : #{exception.message}")
+      @logger.error("[Configuration] Config file #{configFile} not found or invalid! #{exception.inspect}")
       #This is critical!
       raise     
     end

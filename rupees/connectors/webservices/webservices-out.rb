@@ -88,7 +88,7 @@ class HttpServerOut < Sinatra::Base
       content_type :json      
       [404, handleJsonResult(json, params)]
     rescue => exception
-      @logger.error("[HttpServerOut][mono] #{exception.class} : #{exception.message}")
+      @logger.error("[HttpServerOut][mono] #{exception.inspect}")
       500
     end
   end
@@ -105,7 +105,7 @@ class HttpServerOut < Sinatra::Base
       content_type :json      
       [404, handleJsonResult(json, params)]      
     rescue => exception
-      @logger.error("[HttpServerOut][multi] #{exception.class} : #{exception.message}")
+      @logger.error("[HttpServerOut][multi] #{exception.inspect}")
       500
     end      
   end  

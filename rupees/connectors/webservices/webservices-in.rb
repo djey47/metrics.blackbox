@@ -53,7 +53,7 @@ class HttpServerIn < Sinatra::Base
       store(params[:appId], params[:contextId], params[:natureId], params[:value])
       204
     rescue => exception
-      @logger.error("[HttpServerIn][mono] #{exception.class} : #{exception.message}")
+      @logger.error("[HttpServerIn][mono] #{exception.inspect}")
       500
     end
   end
@@ -65,7 +65,7 @@ class HttpServerIn < Sinatra::Base
       storeStar(params[:appId], req["datas"])
       204
     rescue => exception
-      @logger.error("[HttpServerIn][multi] #{exception.class} : #{exception.message}")
+      @logger.error("[HttpServerIn][multi] #{exception.inspect}")
       400
     end
   end
