@@ -13,14 +13,20 @@ class RedisCache
     @logger.info("[RedisCache] Initializing...")    
     
     # Binary
-    @logger.info("[RedisCache] Starting cache server...")    
+    @logger.info("[RedisCache] Starting cache server...")
+    
+    redisBinary = Controller::instance.configuration.options.redis_path
+    raise RuntimeError, "Redis not found at #{redisBinary}." unless File.exists? redisBinary 
+    redisConf = "#{Controller::instance.configuration.information.conf_directory}/redis.conf"
+    raise RuntimeError, "Redis configuration not found at #{redisConf}." unless File.exists? redisConf 
+        
     Controller::instance.allThreads << Thread.new {
-      result = system("#{Controller::instance.configuration.options.redis_path} #{Controller::instance.configuration.information.conf_directory}/redis.conf")
+      result = system("#{redisBinary} #{redisConf}")
       if (result.nil?)
         @logger.error("[RedisCache] Cache server has unexpectedly quit: #{$?}!")
-        raise RuntimeError, "When running cache server: #{Controller::instance.configuration.options.redis_path}"
+        raise RuntimeError, "When running cache server: #{redisBinary}"
       else    
-        @logger.info("[RedisCache] Cache server ended normally.")         
+        @logger.info("[RedisCache] Cache server ended.")         
       end
     }    
     
