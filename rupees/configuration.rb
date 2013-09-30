@@ -30,6 +30,7 @@ class Configuration
     information.rb_directory = File.expand_path File.dirname(__FILE__)
     information.root_directory = "#{information.rb_directory}/.."
     information.conf_directory = "#{information.root_directory}/conf"
+    information.out_directory = "#{information.root_directory}/out"
 
     # Conf summary    
     @logger.info("[Configuration] Information: #{information}")           
@@ -47,11 +48,13 @@ class Configuration
     # Reads conf...
     envPrefix = env.downcase
     
+    options.wsaccess_port = contents["controller"]["#{envPrefix}-wsaccess-port"]
     options.redis_path = contents["cache"]["#{envPrefix}-redis-path"]
     options.wsin_port = contents["connector-ws"]["#{envPrefix}-wsin-port"]
     options.wsout_port = contents["connector-ws"]["#{envPrefix}-wsout-port"]
     options.sharedmem_files = contents["connector-sharedmemory"]["mapping-files"]
-    
+    options.fileout_pollingrate = contents["connector-file"]["polling-rate"]
+           
     # Conf summary    
     @logger.info("[Configuration] Options: #{options}")       
   end
