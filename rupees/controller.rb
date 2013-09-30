@@ -8,6 +8,7 @@ require_relative 'connectors/webservices/webservices-in'
 require_relative 'connectors/webservices/webservices-out'
 require_relative 'mediators/collector'
 require_relative 'configuration'
+require_relative 'controller-access'
 require_relative 'options'
 # Imports below are required only when necessary
 # require_relative 'connectors/sharedmemory/sharedmemory-in'
@@ -36,6 +37,9 @@ class Controller
     
     @logger.info("[Controller] Loading configuration...")
     @configuration = Configuration.new(options[:env], options[:configFile])
+    
+    # Command interface
+    @access = ControllerAccess.new
     
     # Cache
     @cache = RedisCache.new    

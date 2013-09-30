@@ -10,6 +10,9 @@ Use --help switch for options details.
  $ cd scripts 
  $ start-metrics.cmd (win) / ./start-metrics.sh (linux)
  
+ 
+* CONTROLLER Access : localhost:4560 
+ 
 * WS IN Connector : localhost:4567
 
 * WS OUT Connector : localhost:4568
