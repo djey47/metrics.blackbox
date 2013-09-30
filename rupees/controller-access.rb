@@ -2,6 +2,7 @@
 #WS for remote access to Metrics Controller (status, actions)
 
 require 'sinatra/base'
+require 'fileutils'
 require 'json'
 require 'sinatra'
 
@@ -16,8 +17,11 @@ class HttpServerAccess < Sinatra::Base
   def startFileLogging(fileName)
     @logger.info("[HttpServerAccess][startFileLogging] fileName: #{fileName}")
     
-    # TODO: should check whether file can be written on disk
-    
+    # Checks whether file can be written on disk
+    filePath = "#{Controller::instance.configuration.information.out_directory}/#{fileName}"
+    FileUtils.touch(filePath)
+    FileUtils.remove_file(filePath)    
+        
     # TODO: should create a thread, calling server at fixed rate and write results to buffer    
   end  
   
