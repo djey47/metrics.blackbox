@@ -2,6 +2,11 @@
 cache : 
   dev-redis-path : /home/avsp/applications/redis-2.6.14/src/redis-server
   prod-redis-path : bin/redis/redis-server
+controller :
+  dev-wsaccess-port : 4560
+  prod-wsaccess-port : 4560    
+connector-file :
+  polling-rate : 60
 connector-ws :
   dev-wsin-port : 4567
   prod-wsin-port : 4567
@@ -9,3 +14,5 @@ connector-ws :
   prod-wsout-port : 4568
 connector-sharedmemory :
   mapping-files : [sharedmemory/mapping-pcars.yml]  
+
+    

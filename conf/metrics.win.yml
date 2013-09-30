@@ -2,6 +2,11 @@
 cache : 
   dev-redis-path : C:\Utils\Dev\Redis\redis-server.exe   
   prod-redis-path : bin\redis\redis-server.exe
+controller :
+  dev-wsaccess-port : 4560
+  prod-wsaccess-port : 4560    
+connector-file :
+  polling-rate : 60
 connector-ws :
   dev-wsin-port : 4567
   prod-wsin-port : 4567
