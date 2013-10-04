@@ -16,20 +16,12 @@ class HttpServerAccess < Sinatra::Base
 
   def startFileLogging(fileName)
     @logger.info("[HttpServerAccess][startFileLogging] fileName: #{fileName}")
-    
-    # Checks whether file can be written on disk
-    filePath = "#{Controller::instance.configuration.information.out_directory}/#{fileName}"
-    FileUtils.touch(filePath)
-    FileUtils.remove_file(filePath)    
-        
-    # TODO: should create a thread, calling server at fixed rate and write results to buffer    
+    Controller::instance.startFileLogging(fileName)
   end  
   
-  def stopFileLogging(fileName)
-    @logger.info("[HttpServerAccess][stopFileLogging] fileName: #{fileName}")    
-
-    # TODO: should stop polling thread and flush buffer to file
-
+  def stopFileLogging
+    @logger.info("[HttpServerAccess][stopFileLogging]")    
+    Controller::instance.stopFileLogging
   end
   
   #config  
@@ -59,18 +51,18 @@ class HttpServerAccess < Sinatra::Base
       startFileLogging(params[:fileName])
       204
     rescue => exception
-      @logger.error("[HttpServerAccess][startFileOutConnector] #{exception.inspect}")
+      @logger.error("[HttpServerAccess] startFileOutConnector: #{exception.inspect}")
       500
     end
   end
   
   #Stops logging via file OUT connector
-  get '/controller/fileOutConnector/stop/:fileName' do
+  get '/controller/fileOutConnector/stop' do
     begin
-      stopFileLogging(params[:fileName])
+      stopFileLogging
       204
     rescue => exception
-      @logger.error("[HttpServerAccess][stopFileOutConnector] #{exception.inspect}")
+      @logger.error("[HttpServerAccess] stopFileOutConnector: #{exception.inspect}")
       500
     end
   end

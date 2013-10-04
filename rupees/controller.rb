@@ -4,6 +4,7 @@
 require 'logger'
 require 'singleton'
 require_relative 'cache/rediscache'
+require_relative 'connectors/file/file-out'
 require_relative 'connectors/webservices/webservices-in'
 require_relative 'connectors/webservices/webservices-out'
 require_relative 'mediators/collector'
@@ -47,6 +48,7 @@ class Controller
     # Common connectors
     @wsInConnector = WebservicesInConnector.new    
     @wsOutConnector = WebservicesOutConnector.new 
+    @fileOutConnector = FileOutConnector.new
 
     # Windows-specific connectors
     if (options[:windows])
@@ -64,6 +66,21 @@ class Controller
     @logger.info("[Controller] Exiting Metrics controller.")    
   end  
   
+  def startFileLogging(fileName)
+    @logger.info("[Controller][startFileLogging] fileName: #{fileName}")
+    
+    # Checks whether file can be written on disk
+    filePath = "#{@configuration.information.out_directory}/#{fileName}"
+    FileUtils.touch(filePath)
+    FileUtils.remove_file(filePath)    
+    
+    @fileOutConnector.start(filePath)
+  end  
+  
+  def stopFileLogging
+    @logger.info("[Controller][stopFileLogging]")    
+    @fileOutConnector.stop
+  end
 end
 
 # Boot
