@@ -13,6 +13,11 @@ class HttpServerAccess < Sinatra::Base
     #Required for correct Sinatra init
     super
   end
+  
+  def stopMetrics
+    @logger.info("[HttpServerAccess][stopMetrics]")
+    Controller::instance.shutdown    
+  end
 
   def startFileLogging(fileName)
     @logger.info("[HttpServerAccess][startFileLogging] fileName: #{fileName}")
@@ -43,6 +48,17 @@ class HttpServerAccess < Sinatra::Base
   get '/' do
     @logger.info("[HttpServerAccess] Heartbeat!")
     [200, "Metrics - BlackBox: controller access is alive :)"]
+  end
+  
+  #Stops METRICS
+  get '/controller/shutdown' do
+    begin
+      stopMetrics
+      204
+    rescue => exception
+      @logger.error("[HttpServerAccess] shutdown: #{exception.inspect}")
+      500
+    end    
   end
   
   #Starts logging via file OUT connector

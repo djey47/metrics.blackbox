@@ -59,7 +59,7 @@ class Controller
     
     @logger.info("[Controller] Ready to rumble!")
     # Waiting for all threads to terminate
-    allThreads.each { |thr| thr.join }    
+    @allThreads.each { |thr| thr.join }    
   end
   
   def stop
@@ -80,6 +80,11 @@ class Controller
   def stopFileLogging
     @logger.info("[Controller][stopFileLogging]")    
     @fileOutConnector.stop
+  end
+  
+  def shutdown
+    @logger.info("[Controller] Will shutdown now !")    
+    @allThreads.each { |thr| Thread.kill thr }
   end
 end
 
