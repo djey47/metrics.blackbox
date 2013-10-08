@@ -11,7 +11,10 @@ Use --help switch for options details.
  $ start-metrics.cmd (win) / ./start-metrics.sh (linux)
  
  
-* CONTROLLER Access : localhost:4560 
+* CONTROLLER Access : localhost:4560
+	- /controller/shutdown 
+	- /controller/fileOutConnector/start/<file> 
+	- /controller/fileOutConnector/stop 
  
 * WS IN Connector : localhost:4567
 
