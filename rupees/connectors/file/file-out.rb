@@ -22,17 +22,20 @@ class FileOutConnector
           dumpLoop      
       end                
       Controller::instance.allThreads << @dumpThread       
-      @dumpThread.join
     end
   end
   
   def stop
     if running?
       @logger.info "[FileOutConnector] Stopping logging to #{@currentDumpFile}."
-      @dumpThread.kill
-      Controller::instance.allThreads.delete @dumpThread       
+      Thread.kill @dumpThread
+      @dumpThread.join
+      Controller::instance.allThreads.delete @dumpThread
+      
+      #TODO Should write buffer to file then close
+                   
       @dumpThread = nil
-      @currentDumpFile = nil
+      @currentDumpFile = nil      
     else
       @logger.warn "[FileOutConnector] Not logging. Ignoring stop request."      
     end  
