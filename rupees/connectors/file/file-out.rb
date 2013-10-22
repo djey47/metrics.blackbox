@@ -8,9 +8,10 @@ class FileOutConnector
     @logger.level = Logger::INFO
     
     @currentDumpFile = nil
+    @buffer = nil
   end  
   
-  def start(fileName)    
+  def start(fileName, appId)    
     if fileName == @currentDumpFile
       @logger.warn "[FileOutConnector] Already logging to #{fileName}. Ignoring start request."
     else
@@ -18,8 +19,9 @@ class FileOutConnector
       
       @logger.info "[FileOutConnector] Starting logging to #{fileName} @60Hz..."
       @currentDumpFile = fileName    
+      @buffer = []
       @dumpThread = repeat_every(1/60) do
-          dumpLoop      
+          dumpLoop(appId)      
       end                
       Controller::instance.allThreads << @dumpThread       
     end
@@ -32,10 +34,18 @@ class FileOutConnector
       @dumpThread.join
       Controller::instance.allThreads.delete @dumpThread
       
-      #TODO Should write buffer to file then close
-                   
+      @logger.info "[FileOutConnector] Dumping data: #{@buffer}"
+      
+      File.open(@currentDumpFile, "w") { |file| @buffer.each do |data|
+        file.write(data + "\n")
+      end }
+
+      fileSize = File.size(@currentDumpFile).to_f
+      @logger.info "[FileOutConnector] Succesfully dumped data to #{@currentDumpFile} - bytes written: #{fileSize}"
+                          
       @dumpThread = nil
-      @currentDumpFile = nil      
+      @currentDumpFile = nil  
+      @buffer = []    
     else
       @logger.warn "[FileOutConnector] Not logging. Ignoring stop request."      
     end  
@@ -45,8 +55,16 @@ class FileOutConnector
     !(@dumpThread.nil?)
   end
   
-  def dumpLoop       
+  def dumpLoop(appId)       
     @logger.info "[FileOutConnector] Logging!"
+
+    begin      
+      @buffer << buildJsonResults(Server::getAll(appId))
+    rescue NoValueException      
+      @buffer << buildJsonError(ErrorItem::VALUE_NOT_FOUND, appId)
+    rescue => exception
+      @logger.error("[FileOutConnector] #{exception.inspect}")
+    end          
   end
   
   def repeat_every(interval)
@@ -59,4 +77,19 @@ class FileOutConnector
       end
     end
   end
+  
+  def buildJsonResults(datas)
+    toReturn = []
+    datas.each { |data| toReturn << buildDataStructure(data) } 
+    { :datas => toReturn}.to_json 
+  end
+
+  def buildJsonError(error, appId)
+    { :code => error, :detail => "#{appId}|*|*"}.to_json    
+  end
+  
+  def buildDataStructure(data)
+    { :key => data.key, :value => data.value }    
+  end
+
 end

@@ -13,7 +13,7 @@ Use --help switch for options details.
  
 * CONTROLLER Access : localhost:4560
 	- /controller/shutdown 
-	- /controller/fileOutConnector/start/<file> 
+	- /controller/fileOutConnector/start/<file>/<appId> 
 	- /controller/fileOutConnector/stop 
  
 * WS IN Connector : localhost:4567

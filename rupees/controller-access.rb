@@ -19,9 +19,9 @@ class HttpServerAccess < Sinatra::Base
     Controller::instance.shutdown    
   end
 
-  def startFileLogging(fileName)
-    @logger.info("[HttpServerAccess][startFileLogging] fileName: #{fileName}")
-    Controller::instance.startFileLogging(fileName)
+  def startFileLogging(fileName, appId)
+    @logger.info("[HttpServerAccess][startFileLogging] fileName: #{fileName}, appId: #{appId}")
+    Controller::instance.startFileLogging(fileName, appId)
   end  
   
   def stopFileLogging
@@ -62,9 +62,9 @@ class HttpServerAccess < Sinatra::Base
   end
   
   #Starts logging via file OUT connector
-  get '/controller/fileOutConnector/start/:fileName' do
+  get '/controller/fileOutConnector/start/:fileName/:appId' do
     begin
-      startFileLogging(params[:fileName])
+      startFileLogging(params[:fileName], params[:appId])
       204
     rescue => exception
       @logger.error("[HttpServerAccess] startFileOutConnector: #{exception.inspect}")

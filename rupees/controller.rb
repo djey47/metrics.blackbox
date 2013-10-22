@@ -66,15 +66,15 @@ class Controller
     @logger.info("[Controller] Exiting Metrics controller.")    
   end  
   
-  def startFileLogging(fileName)
-    @logger.info("[Controller][startFileLogging] fileName: #{fileName}")
+  def startFileLogging(fileName, appId)
+    @logger.info("[Controller][startFileLogging] fileName: #{fileName}, appId: #{appId}")
     
     # Checks whether file can be written on disk
     filePath = "#{@configuration.information.out_directory}/#{fileName}"
     FileUtils.touch(filePath)
     FileUtils.remove_file(filePath)    
     
-    @fileOutConnector.start(filePath)
+    @fileOutConnector.start(filePath, appId)
   end  
   
   def stopFileLogging
