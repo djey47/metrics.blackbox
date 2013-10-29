@@ -66,11 +66,13 @@ class Controller
     @logger.info("[Controller] Exiting Metrics controller.")    
   end  
   
-  def startFileLogging(fileName, appId)
-    @logger.info("[Controller][startFileLogging] fileName: #{fileName}, appId: #{appId}")
+  def startFileLogging(appId)
+    @logger.info("[Controller][startFileLogging] appId: #{appId}")
     
-    # Checks whether file can be written on disk
-    filePath = "#{@configuration.information.out_directory}/#{fileName}"
+    dateTime = Time.now.strftime("%Y%m%d-%H%M%S")
+    filePath = "#{@configuration.information.out_directory}/#{dateTime}-#{appId}"
+
+    # Checks whether file can be written on disk or not
     FileUtils.touch(filePath)
     FileUtils.remove_file(filePath)    
     
@@ -85,6 +87,10 @@ class Controller
   def shutdown
     @logger.info("[Controller] Will shutdown now !")    
     @allThreads.each { |thr| Thread.kill thr }
+  end
+  
+  def formatDateTime (dateTime)
+    
   end
 end
 

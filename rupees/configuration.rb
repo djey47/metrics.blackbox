@@ -53,7 +53,7 @@ class Configuration
     options.wsin_port = contents["connector-ws"]["#{envPrefix}-wsin-port"]
     options.wsout_port = contents["connector-ws"]["#{envPrefix}-wsout-port"]
     options.sharedmem_files = contents["connector-sharedmemory"]["mapping-files"]
-    options.fileout_pollingrate = contents["connector-file"]["polling-rate"]
+    options.fileout_polling_rate = contents["connector-file"]["polling-rate"]
            
     # Conf summary    
     @logger.info("[Configuration] Options: #{options}")       

@@ -14,7 +14,7 @@ Use --help switch for <options> details.
 * CONTROLLER Access : localhost:4560
 	-[heartbeat]	/ 
 	-[shutdown]		/controller/shutdown 
-	-[startFileOut]	/controller/fileOutConnector/start/<file>/<appId> 
+	-[startFileOut]	/controller/fileOutConnector/start/<appId> 
 	-[stopFileOut]	/controller/fileOutConnector/stop 
  
 * WS IN Connector : localhost:4567
