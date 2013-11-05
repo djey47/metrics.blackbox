@@ -85,13 +85,9 @@ class Controller
   end
   
   def shutdown
-    @logger.info("[Controller] Will shutdown now !")    
+    @logger.info("[Controller] Will shutdown now ! Killing all running threads...")    
     @allThreads.each { |thr| Thread.kill thr }
-  end
-  
-  def formatDateTime (dateTime)
-    
-  end
+  end  
 end
 
 # Boot
