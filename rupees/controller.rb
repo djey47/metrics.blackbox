@@ -60,11 +60,9 @@ class Controller
     @logger.info("[Controller] Ready to rumble!")
     # Waiting for all threads to terminate
     @allThreads.each { |thr| thr.join }    
+    
+    @logger.info("[Controller] Exiting Metrics controller. Bye!")        
   end
-  
-  def stop
-    @logger.info("[Controller] Exiting Metrics controller.")    
-  end  
   
   def startFileLogging(appId)
     @logger.info("[Controller][startFileLogging] appId: #{appId}")
@@ -92,4 +90,3 @@ end
 
 # Boot
 Controller.instance.run
-Controller.instance.stop
