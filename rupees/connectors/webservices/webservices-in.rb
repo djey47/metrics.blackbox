@@ -7,7 +7,6 @@ require 'json'
 require 'sinatra'
 require_relative '../../mediators/collector'
 
-
 class HttpServerIn < Sinatra::Base  
   def initialize
     @logger = Logger.new(STDOUT)
