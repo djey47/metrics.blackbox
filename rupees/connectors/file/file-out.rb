@@ -1,6 +1,7 @@
 #file-out.rb
 #OUT connector to file system
 #Polls server to get datas to write to a given file on disk
+
 class FileOutConnector
   def initialize
     @logger = Logger.new(STDOUT)
@@ -58,12 +59,12 @@ class FileOutConnector
   end
 
   def dumpLoop(appId)
-    @logger.info "[FileOutConnector] Logging!"
+    # @logger.debug "[FileOutConnector] Logging!"
 
     begin
       @buffer << buildJsonResults(Server::getAll(appId))
     rescue NoValueException
-      @buffer << buildJsonError(ErrorItem::VALUE_NOT_FOUND, appId)
+      @buffer << buildJsonNoValue()
     rescue => exception
       @logger.error("[FileOutConnector] #{exception.inspect}")
     end
@@ -86,15 +87,11 @@ class FileOutConnector
     { :datas => toReturn}.to_json
   end
 
-  def buildJsonError(error, appId)
-    { :code => error, :detail => "#{appId}|*|*"}.to_json
+  def buildJsonNoValue
+    {}.to_json
   end
 
   def buildDataStructure(data)
     { :key => data.key, :value => data.value }
-  end
-
-  def getDumpFileName
-
   end
 end
