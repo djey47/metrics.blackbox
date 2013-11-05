@@ -1,0 +1,52 @@
+{
+	"datas" : [ 
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "45.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "50.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "55.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "60.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "65.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "60.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "55.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "50.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "45.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "40.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "35.0"
+	 	},
+		{ 
+			"key" : { "appId" : "APP_TEST", "ctxId" : "CTX1", "natId" : "NAT1" }, 
+			"value" : "30.0"
+	 	}	 	 
+ 	]
+}
