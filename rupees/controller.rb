@@ -53,40 +53,50 @@ class Controller
     # Windows-specific connectors
     if (options[:windows])
       @logger.info("[Controller] Activating Windows-specific features...")
+      
       require_relative 'connectors/sharedmemory/sharedmemory-in'
       @smInConnector = SharedMemoryInConnector.new  
     end 
     
     @logger.info("[Controller] Ready to rumble!")
+    
     # Waiting for all threads to terminate
     @allThreads.each { |thr| thr.join }    
     
     @logger.info("[Controller] Exiting Metrics controller. Bye!")        
   end
   
+  def shutdown
+    @logger.info("[Controller] Will shutdown now ! Killing all running threads...")    
+    
+    @allThreads.each { |thr| Thread.kill thr }
+  end  
+    
   def startFileLogging(appId)
     @logger.info("[Controller][startFileLogging] appId: #{appId}")
     
-    dateTime = Time.now.strftime("%Y%m%d-%H%M%S")
-    filePath = "#{@configuration.information.out_directory}/#{dateTime}-#{appId}"
-
-    # Checks whether file can be written on disk or not
-    FileUtils.touch(filePath)
-    FileUtils.remove_file(filePath)    
-    
+    filePath = generateAndCheckFilePath(appId)
     @fileOutConnector.start(filePath, appId)
   end  
   
   def stopFileLogging
     @logger.info("[Controller][stopFileLogging]")    
+    
     @fileOutConnector.stop
   end
   
-  def shutdown
-    @logger.info("[Controller] Will shutdown now ! Killing all running threads...")    
-    @allThreads.each { |thr| Thread.kill thr }
-  end  
+  def generateAndCheckFilePath(key)    
+    timestamp = Time.now.strftime("%Y%m%d-%H%M%S")
+    filePath = "#{@configuration.information.out_directory}/#{timestamp}-#{key}"
+
+    # Checks whether file can be written on disk or not
+    FileUtils.touch(filePath)
+    FileUtils.remove_file(filePath)    
+    
+    filePath
+  end    
 end
 
 # Boot
 Controller.instance.run
+# Boot
