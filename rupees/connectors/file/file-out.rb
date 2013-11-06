@@ -64,7 +64,7 @@ class FileOutConnector
     begin
       @buffer << buildJsonResults(Server::getAll(appId))
     rescue NoValueException
-      @buffer << buildJsonNoValue()
+      @buffer << buildJsonNoValue
     rescue => exception
       @logger.error("[FileOutConnector] #{exception.inspect}")
     end
@@ -83,15 +83,15 @@ class FileOutConnector
 
   def buildJsonResults(datas)
     toReturn = []
-    datas.each { |data| toReturn << buildDataStructure(data) }
-    { :datas => toReturn}.to_json
+    datas.each { |data| toReturn << buildJsonData(data) }
+    { :d => toReturn}.to_json
   end
 
   def buildJsonNoValue
     {}.to_json
   end
 
-  def buildDataStructure(data)
-    { :key => data.key, :value => data.value }
+  def buildJsonData(data)
+    { :k => data.key, :v => data.value }
   end
 end
