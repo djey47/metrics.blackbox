@@ -1,6 +1,8 @@
 #! /bin/sh
 
 #Test dump feature  WS IN (default port) -> FILE OUT
+# Stores value from 1 to 100 into cache, with a 16.6 ms pause between 2 attempts
+# (to simulate 60 req/s from a game)
 echo *Flushing redis...
 /home/avsp/applications/redis-2.6.14/src/redis-cli "FLUSHDB"
 echo
