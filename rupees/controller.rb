@@ -63,12 +63,13 @@ class Controller
     # Waiting for all threads to terminate
     @allThreads.each { |thr| thr.join }    
     
-    @logger.info("[Controller] Exiting Metrics controller. Bye!")        
+    @logger.info("[Controller] Exiting Metrics controller. See you soon!")        
   end
   
   def shutdown
     @logger.info("[Controller] Will shutdown now ! Killing all running threads...")    
     
+    @cache.shutdown
     @allThreads.each { |thr| Thread.kill thr }
   end  
     
