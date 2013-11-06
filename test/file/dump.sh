@@ -11,7 +11,7 @@ echo *Go...
 for i in `seq 1 100`
 do
 	curl -X POST -d "" http://localhost:4567/collector/APP_TEST/CTX1/NAT1/$i
-	sleep 0
+	sleep 0.0166
 done
 echo
 echo *Stopping dump...
