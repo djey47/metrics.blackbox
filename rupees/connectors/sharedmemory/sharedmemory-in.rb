@@ -39,7 +39,7 @@ class SharedMemoryInConnector
       
       @logger.info("[SharedMemoryInConnector] Share data:#{sharedData}")
      
-    rescue Exception => exception
+    rescue => exception
       @logger.error("[SharedMemoryInConnector] #{exception.inspect}")
     end
   end
@@ -55,7 +55,7 @@ class SharedMemoryInConnector
       begin
         @mappings << YAML.load_file(mappingFilePath)
         @logger.info("[SharedMemoryInConnector] Loaded mappings: #{@mappings}")    
-      rescue Exception => exception
+      rescue => exception
         @logger.error("[SharedMemoryInConnector] Mapping file #{mappingFilePath} not found or invalid! #{exception.inspect}")
       end
     end

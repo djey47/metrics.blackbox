@@ -41,7 +41,7 @@ class Configuration
   def parseOptions(configFile, env)
     begin
       contents = YAML.load_file(configFile)
-    rescue Exception => exception 
+    rescue => exception 
       @logger.error("[Configuration] Config file #{configFile} not found or invalid! #{exception.inspect}")
       #This is critical!
       raise     
