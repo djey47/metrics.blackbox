@@ -21,6 +21,8 @@ class DataItem
     DataItem.new(keyItems[0], keyItems[1], keyItems[2], value)
   end  
   
+  private
+  
   def key
     "#{@appId}#{KEY_SEPARATOR}#{@contextId}#{KEY_SEPARATOR}#{@natureId}"  
   end       

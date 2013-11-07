@@ -44,6 +44,8 @@ class SharedMemoryInConnector
     end
   end
   
+  private
+  
   def readConfiguration
     @logger.info("[SharedMemoryInConnector] Loading mappings...")    
     mappingFiles = Controller::instance.configuration.options.sharedmem_files

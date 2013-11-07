@@ -28,6 +28,8 @@ class HttpServerOut < Sinatra::Base
     Server::getAll(appId)
   end
     
+  private
+      
   #TODO externalize to DataItem class ?
   def buildDataStructure(data)
     { :key => data.key, :value => data.value }    

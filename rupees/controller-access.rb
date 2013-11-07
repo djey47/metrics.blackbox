@@ -93,6 +93,5 @@ class ControllerAccess
       @logger.info("[ControllerAccess] Starting HTTP server...")    
       HttpServerAccess.run!
     }    
-  end
-  
+  end  
 end

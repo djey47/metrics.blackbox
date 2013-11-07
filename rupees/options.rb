@@ -34,8 +34,10 @@ module Options
       end      
     end.parse!(args)
         
-    validate options
+    validate(options)
   end
+  
+  private
   
   def validate(options)    
     @logger.info("[Options] * Validating -c/--config ...")            

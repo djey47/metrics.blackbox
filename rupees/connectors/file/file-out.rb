@@ -58,6 +58,8 @@ class FileOutConnector
     !(@dumpThread.nil?)
   end
 
+  private
+  
   def dumpLoop(appId)
     # @logger.debug "[FileOutConnector] Logging!"
 

@@ -85,7 +85,9 @@ class Controller
     
     @fileOutConnector.stop
   end
-  
+
+  private
+    
   def generateAndCheckFilePath(key)    
     timestamp = Time.now.strftime("%Y%m%d-%H%M%S")
     filePath = "#{@configuration.information.out_directory}/#{timestamp}-#{key}"

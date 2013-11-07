@@ -41,7 +41,6 @@ class RedisCache
     rescue => exception
       @logger.error("[RedisCache] Unable to terminate cache server: #{exception.inspect}")
     end
-
   end
   
   def store(datas)

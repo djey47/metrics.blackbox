@@ -24,7 +24,9 @@ class Configuration
     setInformation(currentEnv)
     parseOptions(configFile, currentEnv)
   end
-  
+
+  private
+    
   def setInformation(env)
     information.env = env
     information.rb_directory = File.expand_path File.dirname(__FILE__)
@@ -57,6 +59,5 @@ class Configuration
            
     # Conf summary    
     @logger.info("[Configuration] Options: #{options}")       
-  end
-  
+  end  
 end
